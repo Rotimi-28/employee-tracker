@@ -2,6 +2,7 @@ const inquirer = require("inquirer");
 const db = require("./db/employee");
 const mysql = require("mysql2");
 const { Console } = require("console");
+const Connection = require("mysql2/typings/mysql/lib/Connection");
 require("dotenv").config();
 
 //Connection Inf
@@ -123,20 +124,29 @@ function addDepartment() {
   });
 }*/
 
-
 function addRole() {
   inquirer
     .prompt([
       {
         type: "input",
-        name: "role",
+        name: "roleName",
         message: "What role would you like to add?",
+      },
+      {
+        type: "roleSalary",
+        name: "roleSalary",
+        message: "Salary?",
+      },
+      {
+        type: "input",
+        name: "roleDept",
+        message: "Dept?",
       },
     ])
     .then(function (res) {
       connection.query(
-        " INSERT INTO role VALUE(title,salary,department_id) VALUE(?,?,?)",
-        res.role,
+        " INSERT INTO role (title,salary,department_id) VALUE(?,?,?)",
+        [res.roleName, res.roleSAlary, res.roleDept],
         (err, result) => {
           if (err) throw err;
           console.table(result);
@@ -147,28 +157,54 @@ function addRole() {
 }
 
 function addEmployee() {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          name: "employee first name",
-          message: "Enter empolyee  first name",
-        },
-        {
-            type: "input",
-            name: "employee last name",
-            message: "Enter employee last name",
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "employee first name",
+        message: "Enter empolyee  first name",
+      },
+      {
+        type: "input",
+        name: "employee last name",
+        message: "Enter employee last name",
+      },
+      {
+        type: "role",
+        name: "new employee role",
+      },
+    ])
+    .then(function (res) {
+      connection.query(
+        "INSERT INTO employee(name) VALUES(?,?,?)",
+        res.addEmployee,
+        (err, result) => {
+          if (err) throw err;
+          console.table(result);
+          start();
         }
-      ])
-      .then(function (res) {
-        connection.query(
-          "INSERT INTO employee(name) VALUES(?)",
-          res.dept,
-          (err, result) => {
-            if (err) throw err;
-            console.table(result);
-            start();
-          }
-        );
-      });
-  }
+      );
+    });
+}
+
+function updateEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "update",
+        message: "Which employee role would you like to update?",
+      },
+    ])
+    .then(function (res) {
+      connection.query(
+        "INSERT INTO update employee role VALUE(?)",
+        res.updateEmployee,
+        (err, result) => {
+          if (err) throw err;
+          console.table(result);
+          start();
+        }
+      );
+    });
+}
