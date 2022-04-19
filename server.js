@@ -115,13 +115,14 @@ function addDepartment() {
     });
 }
 
-function addRole() {
+/*function addRole() {
   connection.query("SELECT * FROM role", (err, result) => {
     if (err) throw err;
     console.table(result);
     start();
   });
-}
+}*/
+
 
 function addRole() {
   inquirer
@@ -132,9 +133,9 @@ function addRole() {
         message: "What role would you like to add?",
       },
     ])
-    .then(function (re) {
+    .then(function (res) {
       connection.query(
-        "INSERT INTO role VALUE(name) VALUE(?)",
+        " INSERT INTO role VALUE(title,salary,department_id) VALUE(?,?,?)",
         res.role,
         (err, result) => {
           if (err) throw err;
@@ -144,3 +145,30 @@ function addRole() {
       );
     });
 }
+
+function addEmployee() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "employee first name",
+          message: "Enter empolyee  first name",
+        },
+        {
+            type: "input",
+            name: "employee last name",
+            message: "Enter employee last name",
+        }
+      ])
+      .then(function (res) {
+        connection.query(
+          "INSERT INTO employee(name) VALUES(?)",
+          res.dept,
+          (err, result) => {
+            if (err) throw err;
+            console.table(result);
+            start();
+          }
+        );
+      });
+  }
