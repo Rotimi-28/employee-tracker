@@ -11,7 +11,7 @@
  . THEN I choose to view all employees
  . THEN I am presented with the job title, role id, the department that role belongs to, and the salary for that role
  . WHEN I choose to view all employees
- . THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job titles, departments, salaries,        and   managers that the employees report to
+ . THEN I am presented with a formatted table showing employee data, including employee ids, first names, last names, job  titles, departments, salaries,        and   managers that the employees report to
  . WHEN I choose to add a department
  . THEN I am prompted to enter the name of the department and that department is added to database
  . WHEN I choose to add an employee
@@ -24,8 +24,11 @@
   . mysql
   . console.table
 # Installation
-  To run this program you will need to install the npm nodejs, inquirer, console.table, mysql and you will need to create a database using the provided       schema
+  To run this program you will need to install the npm nodejs, inquirer, console.table, mysql and you will need to create a database using the provided schema then, 
+  run: npm start on the command on your local machine.
+
 
 # Athur
   Rotimi-28
   
+[Screenshot 2024-05-26 at 21.44.21]
